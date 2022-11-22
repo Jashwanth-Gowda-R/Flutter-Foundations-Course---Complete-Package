@@ -6,7 +6,7 @@ This is the official Flutter Project for this course:
 
 This will include a full-stack eCommerce app using Flutter & Firebase:
 
-![eCommerce App Preview](/.github/images/ecommerce-app-preview.png)
+![eCommerce App Preview](https://raw.githubusercontent.com/bizz84/complete-flutter-course/main/.github/images/ecommerce-app-preview.png)
 
 A Flutter web preview of the app can be found here:
 
