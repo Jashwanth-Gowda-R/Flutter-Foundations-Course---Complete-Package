@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/src/features/account/account_screen.dart';
+import 'package:ecommerce_app/src/features/checkout/checkout_screen.dart';
 import 'package:ecommerce_app/src/features/leave_review_page/leave_review_screen.dart';
 import 'package:ecommerce_app/src/features/not_found/not_found_screen.dart';
 import 'package:ecommerce_app/src/features/orders_list/orders_list_screen.dart';
@@ -18,6 +19,7 @@ enum AppRoutes {
   signIn,
   product,
   leaveReview,
+  checkout,
 }
 
 final goRouter = GoRouter(
@@ -50,14 +52,24 @@ final goRouter = GoRouter(
               ),
             ]),
         GoRoute(
-          path: 'cart',
-          name: AppRoutes.cart.name,
-          pageBuilder: (context, state) => MaterialPage(
-            key: state.pageKey,
-            fullscreenDialog: true,
-            child: const ShoppingCartScreen(),
-          ),
-        ),
+            path: 'cart',
+            name: AppRoutes.cart.name,
+            pageBuilder: (context, state) => MaterialPage(
+                  key: state.pageKey,
+                  fullscreenDialog: true,
+                  child: const ShoppingCartScreen(),
+                ),
+            routes: [
+              GoRoute(
+                path: 'checkout',
+                name: AppRoutes.checkout.name,
+                pageBuilder: (context, state) => MaterialPage(
+                  key: state.pageKey,
+                  fullscreenDialog: true,
+                  child: const CheckoutScreen(),
+                ),
+              ),
+            ]),
         GoRoute(
           path: 'orders',
           name: AppRoutes.orders.name,
