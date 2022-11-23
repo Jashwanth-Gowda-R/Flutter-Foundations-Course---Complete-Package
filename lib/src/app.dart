@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
-      routerConfig: goRoutes,
+      routerConfig: goRouter,
       // * The home page of the app
       // home: const ProductsListScreen(),
       onGenerateTitle: (BuildContext context) => 'My Shop'.hardcoded,
