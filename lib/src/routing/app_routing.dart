@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/src/features/account/account_screen.dart';
+import 'package:ecommerce_app/src/features/leave_review_page/leave_review_screen.dart';
 import 'package:ecommerce_app/src/features/not_found/not_found_screen.dart';
 import 'package:ecommerce_app/src/features/orders_list/orders_list_screen.dart';
 import 'package:ecommerce_app/src/features/product_page/product_screen.dart';
@@ -16,6 +17,7 @@ enum AppRoutes {
   orders,
   signIn,
   product,
+  leaveReview,
 }
 
 final goRouter = GoRouter(
@@ -28,13 +30,25 @@ final goRouter = GoRouter(
       builder: (context, state) => const ProductsListScreen(),
       routes: [
         GoRoute(
-          path: 'product/:id',
-          name: AppRoutes.product.name,
-          builder: (context, state) {
-            final productId = state.params['id']!;
-            return ProductScreen(productId: productId);
-          },
-        ),
+            path: 'product/:id',
+            name: AppRoutes.product.name,
+            builder: (context, state) {
+              final productId = state.params['id']!;
+              return ProductScreen(productId: productId);
+            },
+            routes: [
+              GoRoute(
+                path: 'review',
+                name: AppRoutes.leaveReview.name,
+                pageBuilder: (context, state) {
+                  final productId = state.params['id']!;
+                  return MaterialPage(
+                      key: state.pageKey,
+                      fullscreenDialog: true,
+                      child: LeaveReviewScreen(productId: productId));
+                },
+              ),
+            ]),
         GoRoute(
           path: 'cart',
           name: AppRoutes.cart.name,

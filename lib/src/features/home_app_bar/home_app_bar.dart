@@ -46,7 +46,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
             ActionTextButton(
               key: MoreMenuButton.ordersKey,
               text: 'Orders'.hardcoded,
-              onPressed: () => context.goNamed(AppRoutes.orders.name),
+              onPressed: () => context.pushNamed(AppRoutes.orders.name),
               // onPressed: () => Navigator.of(context).push(
               //   MaterialPageRoute(
               //     fullscreenDialog: true,
@@ -57,7 +57,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
             ActionTextButton(
               key: MoreMenuButton.accountKey,
               text: 'Account'.hardcoded,
-              onPressed: () => context.goNamed(AppRoutes.account.name),
+              onPressed: () => context.pushNamed(AppRoutes.account.name),
               // onPressed: () => Navigator.of(context).push(
               //   MaterialPageRoute(
               //     fullscreenDialog: true,
@@ -69,7 +69,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
             ActionTextButton(
               key: MoreMenuButton.signInKey,
               text: 'Sign In'.hardcoded,
-              onPressed: () => context.goNamed(AppRoutes.signIn.name),
+              onPressed: () => context.pushNamed(AppRoutes.signIn.name),
               // onPressed: () => Navigator.of(context).push(
               //   MaterialPageRoute(
               //     fullscreenDialog: true,

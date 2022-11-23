@@ -59,7 +59,7 @@ class MoreMenuButton extends StatelessWidget {
             //     ),
             //   ),
             // );
-            context.goNamed(AppRoutes.signIn.name);
+            context.pushNamed(AppRoutes.signIn.name);
             break;
           case PopupMenuOption.orders:
             // Navigator.of(context).push(
@@ -68,7 +68,7 @@ class MoreMenuButton extends StatelessWidget {
             //     builder: (_) => const OrdersListScreen(),
             //   ),
             // );
-            context.goNamed(AppRoutes.orders.name);
+            context.pushNamed(AppRoutes.orders.name);
             break;
           case PopupMenuOption.account:
             // Navigator.of(context).push(
@@ -77,7 +77,7 @@ class MoreMenuButton extends StatelessWidget {
             //     builder: (_) => const AccountScreen(),
             //   ),
             // );
-            context.goNamed(AppRoutes.account.name);
+            context.pushNamed(AppRoutes.account.name);
             break;
         }
       },
