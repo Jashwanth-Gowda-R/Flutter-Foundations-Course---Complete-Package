@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
+import 'package:ecommerce_app/src/routing/app_routing.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/src/models/app_user.dart';
 import 'package:go_router/go_router.dart';
@@ -58,7 +59,7 @@ class MoreMenuButton extends StatelessWidget {
             //     ),
             //   ),
             // );
-            context.go('/signIn');
+            context.goNamed(AppRoutes.signIn.name);
             break;
           case PopupMenuOption.orders:
             // Navigator.of(context).push(
@@ -67,7 +68,7 @@ class MoreMenuButton extends StatelessWidget {
             //     builder: (_) => const OrdersListScreen(),
             //   ),
             // );
-            context.go('/orders');
+            context.goNamed(AppRoutes.orders.name);
             break;
           case PopupMenuOption.account:
             // Navigator.of(context).push(
@@ -76,7 +77,7 @@ class MoreMenuButton extends StatelessWidget {
             //     builder: (_) => const AccountScreen(),
             //   ),
             // );
-            context.go('/account');
+            context.goNamed(AppRoutes.account.name);
             break;
         }
       },
