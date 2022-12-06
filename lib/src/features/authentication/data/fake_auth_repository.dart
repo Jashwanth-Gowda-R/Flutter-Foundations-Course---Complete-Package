@@ -22,7 +22,7 @@ class FakeAuthRepository {
     _authState.value = null;
   }
 
-  Stream<AppUser?> authStateChange() => _authState.stream;
+  Stream<AppUser?> authStateChanges() => _authState.stream;
 
   AppUser? get currentUser => _authState.value;
 
@@ -47,5 +47,5 @@ final authRepositoryProvider = Provider<FakeAuthRepository>((ref) {
 
 final authStateChangeProvider = StreamProvider.autoDispose<AppUser?>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
-  return authRepository.authStateChange();
+  return authRepository.authStateChanges();
 });
