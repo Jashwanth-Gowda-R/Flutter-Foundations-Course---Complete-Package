@@ -30,28 +30,29 @@ class ProductScreen extends StatelessWidget {
     return Scaffold(
       appBar: const HomeAppBar(),
       body: Consumer(
-          builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        // final productRepository = ref.watch(productsRepositoryProvider);
-        // final product = productRepository.getProduct(productId);
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          // final productRepository = ref.watch(productsRepositoryProvider);
+          // final product = productRepository.getProduct(productId);
 
-        final productValue = ref.watch(productProvider(productId));
-        return AsyncValueWidget<Product?>(
-          value: productValue,
-          data: (product) => product == null
-              ? EmptyPlaceholderWidget(
-                  message: 'Product not found'.hardcoded,
-                )
-              : CustomScrollView(
-                  slivers: [
-                    ResponsiveSliverCenter(
-                      padding: const EdgeInsets.all(Sizes.p16),
-                      child: ProductDetails(product: product),
-                    ),
-                    ProductReviewsList(productId: productId),
-                  ],
-                ),
-        );
-      }),
+          final productValue = ref.watch(productProvider(productId));
+          return AsyncValueWidget<Product?>(
+            value: productValue,
+            data: (product) => product == null
+                ? EmptyPlaceholderWidget(
+                    message: 'Product not found'.hardcoded,
+                  )
+                : CustomScrollView(
+                    slivers: [
+                      ResponsiveSliverCenter(
+                        padding: const EdgeInsets.all(Sizes.p16),
+                        child: ProductDetails(product: product),
+                      ),
+                      ProductReviewsList(productId: productId),
+                    ],
+                  ),
+          );
+        },
+      ),
     );
   }
 }
