@@ -1,8 +1,15 @@
-import 'package:ecommerce_app/src/constants/test_products.dart';
-import 'package:ecommerce_app/src/features/products/domain/product.dart';
+import 'package:ecommerce_app/src/utils/delay.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:ecommerce_app/src/constants/test_products.dart';
+import 'package:ecommerce_app/src/features/products/domain/product.dart';
+
 class FakeProductsRepository {
+  FakeProductsRepository({
+    this.addDelay = true,
+  });
+  final bool addDelay;
+
   // FakeProductsRepository._();
   // static FakeProductsRepository instance = FakeProductsRepository._();
 
@@ -24,12 +31,15 @@ class FakeProductsRepository {
     return _getProduct(_products, id);
   }
 
-  Future<List<Product>> fetchProductsList() {
+  Future<List<Product>> fetchProductsList() async {
+    await delay(addDelay);
     return Future.value(_products);
   }
 
-  Stream<List<Product>> watchProductsList() {
-    return Stream.value(_products);
+  Stream<List<Product>> watchProductsList() async* {
+    await delay(addDelay);
+    // return Stream.value(_products);
+    yield _products;
   }
 
   Stream<Product?> watchProduct(String id) {
