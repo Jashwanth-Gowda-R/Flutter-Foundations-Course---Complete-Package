@@ -1,11 +1,19 @@
-import 'package:ecommerce_app/src/features/authentication/domain/app_user.dart';
-import 'package:ecommerce_app/src/utils/in_memory_store.dart';
+import 'package:ecommerce_app/src/utils/delay.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:ecommerce_app/src/features/authentication/domain/app_user.dart';
+import 'package:ecommerce_app/src/utils/in_memory_store.dart';
+
 class FakeAuthRepository {
+  FakeAuthRepository({
+    this.addDelay = true,
+  });
+  final bool addDelay;
+
   final _authState = InMemoryStore<AppUser?>(null);
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
+    await delay(addDelay);
     if (currentUser == null) {
       _createNewUser(email);
     }
@@ -13,12 +21,14 @@ class FakeAuthRepository {
 
   Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
+    await delay(addDelay);
     if (currentUser == null) {
       _createNewUser(email);
     }
   }
 
   Future<void> signOut() async {
+    await delay(addDelay);
     _authState.value = null;
   }
 
