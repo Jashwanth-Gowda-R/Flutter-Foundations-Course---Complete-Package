@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AccountScreenController extends StateNotifier<AsyncValue<void>> {
   AccountScreenController({required this.authRepository})
-      : super(const AsyncValue<void>.data(null));
+      : super(const AsyncData<void>(null));
   final FakeAuthRepository authRepository;
 
   Future<void> signOut() async {
@@ -16,7 +16,7 @@ class AccountScreenController extends StateNotifier<AsyncValue<void>> {
     //   state = AsyncValue<void>.error(e, st);
     //   return false;
     // }
-    state = const AsyncValue<void>.loading();
+    state = const AsyncLoading<void>();
     state = await AsyncValue.guard(() => authRepository.signOut());
     // return state.hasError == false;
   }
