@@ -15,11 +15,7 @@ class OrderItemListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: Read from data source
-    // final product =
-    //     kTestProducts.firstWhere((product) => product.id == item.productId);
     final productValue = ref.watch(productProvider(item.productId));
-
     return AsyncValueWidget<Product?>(
       value: productValue,
       data: (product) => Padding(

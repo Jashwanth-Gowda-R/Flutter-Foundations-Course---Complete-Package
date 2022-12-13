@@ -28,7 +28,6 @@ class EmailPasswordSignInScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Sign In'.hardcoded)),
       body: EmailPasswordSignInContents(
         formType: formType,
-        // onSignedIn: () => Navigator.of(context).pop(),
       ),
     );
   }
@@ -67,10 +66,6 @@ class _EmailPasswordSignInContentsState
   // For more details on how this is implemented, see:
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
-  // // local variable representing the form type and loading state
-  // late var state = EmailPasswordSignInState(
-  //   formType: widget.formType,
-  // );
 
   @override
   void dispose() {
@@ -110,7 +105,6 @@ class _EmailPasswordSignInContentsState
 
   void _updateFormType(EmailPasswordSignInFormType formType) {
     // * Toggle between register and sign in form
-    // setState(() => state = state.copyWith(formType: formType));
     ref
         .read(emailPasswordSignInControllerProvider(widget.formType).notifier)
         .updateFormType(formType);
@@ -122,11 +116,10 @@ class _EmailPasswordSignInContentsState
   Widget build(BuildContext context) {
     ref.listen<AsyncValue>(
       emailPasswordSignInControllerProvider(widget.formType)
-          // we only care about value changes
           .select((state) => state.value),
       (_, state) => state.showAlertDialogOnError(context),
     );
-    var state =
+    final state =
         ref.watch(emailPasswordSignInControllerProvider(widget.formType));
     return ResponsiveScrollableCard(
       child: FocusScope(

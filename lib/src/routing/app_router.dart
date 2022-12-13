@@ -33,11 +33,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final isLoggedIn = authRepository.currentUser != null;
       if (isLoggedIn) {
-        if (state.location == "/signIn") {
+        if (state.location == '/signIn') {
           return '/';
         }
       } else {
-        if (state.location == "/orders" || state.location == "/account") {
+        if (state.location == '/account' || state.location == '/orders') {
           return '/';
         }
       }
@@ -82,16 +82,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             ),
             routes: [
               GoRoute(
-                  path: 'checkout',
-                  name: AppRoute.checkout.name,
-                  pageBuilder: (context, state) {
-                    return MaterialPage(
-                      // key: state.pageKey,
-                      key: ValueKey(state.location),
-                      fullscreenDialog: true,
-                      child: const CheckoutScreen(),
-                    );
-                  }),
+                path: 'checkout',
+                name: AppRoute.checkout.name,
+                pageBuilder: (context, state) => MaterialPage(
+                  key: ValueKey(state.location),
+                  fullscreenDialog: true,
+                  child: const CheckoutScreen(),
+                ),
+              ),
             ],
           ),
           GoRoute(

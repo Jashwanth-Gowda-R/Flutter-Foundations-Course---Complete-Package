@@ -15,35 +15,22 @@ class AccountScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ref.listen<AsyncValue<void>>(
-    //   accountScreenControllerProvider,
-    //   (previousState, state) {
-    //     if (!state.isLoading && state.hasError) {
-    //       showExceptionAlertDialog(
-    //         context: context,
-    //         title: 'Error'.hardcoded,
-    //         exception: state.error,
-    //       );
-    //     }
-    //   },
-    // );
-    ref.listen<AsyncValue<void>>(
+    ref.listen<AsyncValue>(
       accountScreenControllerProvider,
-      (previousState, state) => state.showAlertDialogOnError(context),
+      (_, state) => state.showAlertDialogOnError(context),
     );
-
     final state = ref.watch(accountScreenControllerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account'.hardcoded),
+        title: state.isLoading
+            ? const CircularProgressIndicator()
+            : Text('Account'.hardcoded),
         actions: [
           ActionTextButton(
             text: 'Logout'.hardcoded,
             onPressed: state.isLoading
                 ? null
                 : () async {
-                    // get the navigator before the async gap
-                    final navigator = Navigator.of(context);
                     final logout = await showAlertDialog(
                       context: context,
                       title: 'Are you sure?'.hardcoded,
@@ -54,12 +41,6 @@ class AccountScreen extends ConsumerWidget {
                       ref
                           .read(accountScreenControllerProvider.notifier)
                           .signOut();
-                      // final success = await ref
-                      //     .read(accountScreenControllerProvider.notifier)
-                      //     .signOut();
-                      // if (success) {
-                      //   navigator.pop();
-                      // }
                     }
                   },
           ),
@@ -80,10 +61,7 @@ class UserDataTable extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme.subtitle2!;
-
-    // const user = AppUser(uid: '123', email: 'test@test.com');
-    final user = ref.watch(authStateChangeProvider).value;
-
+    final user = ref.watch(authStateChangesProvider).value;
     return DataTable(
       columns: [
         DataColumn(
@@ -102,7 +80,7 @@ class UserDataTable extends ConsumerWidget {
       rows: [
         _makeDataRow(
           'uid'.hardcoded,
-          user?.uid ?? "",
+          user?.uid ?? '',
           style,
         ),
         _makeDataRow(

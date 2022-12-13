@@ -23,17 +23,10 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Read from data source
-    // final product =
-    //     kTestProducts.firstWhere((product) => product.id == productId);
-
     return Scaffold(
       appBar: const HomeAppBar(),
       body: Consumer(
-        builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          // final productRepository = ref.watch(productsRepositoryProvider);
-          // final product = productRepository.getProduct(productId);
-
+        builder: (context, ref, _) {
           final productValue = ref.watch(productProvider(productId));
           return AsyncValueWidget<Product?>(
             value: productValue,
