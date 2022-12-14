@@ -92,4 +92,33 @@ void main() {
     // expect(dialogTitle, findsNothing);
     r.expectErrorAlertFound();
   });
+
+  testWidgets('Confirm logout,loading state', (tester) async {
+    // await tester.pumpWidget(
+    //   const ProviderScope(
+    //       child: MaterialApp(
+    //     home: AccountScreen(),
+    //   )),
+    // );
+    var r = AuthRobot(tester);
+    final authRepository = MockAuthRepository();
+    when(authRepository.signOut).thenAnswer(
+      (_) => Future.delayed(
+        const Duration(seconds: 1),
+      ),
+    );
+    when(authRepository.authStateChanges).thenAnswer(
+      (_) => Stream.value(
+        const AppUser(uid: '123', email: 'test@test.com'),
+      ),
+    );
+    await r.pumpAccountScreen(authRepository: authRepository);
+    await r.tester.runAsync(() async {
+      await r.tapLogoutButton();
+      r.expectLogoutDialogFound();
+      await r.tapDialogLogoutButton();
+    });
+
+    r.expectCircularProgressIndicator();
+  });
 }
