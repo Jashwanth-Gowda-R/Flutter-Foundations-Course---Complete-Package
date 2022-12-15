@@ -9,13 +9,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'features/authentication/auth_robot.dart';
+import 'goldens/golden_robot.dart';
 
 class Robot {
   Robot(
     this.tester,
-  ) : auth = AuthRobot(tester);
+  )   : auth = AuthRobot(tester),
+        golden = GoldenRobot(tester);
   final WidgetTester tester;
   final AuthRobot auth;
+  final GoldenRobot golden;
 
   Future<void> pumpMyApp() async {
     // create new repositories with addDelay: false
