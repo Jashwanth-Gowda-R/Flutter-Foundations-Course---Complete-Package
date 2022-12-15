@@ -2,16 +2,20 @@ import 'package:ecommerce_app/src/app.dart';
 import 'package:ecommerce_app/src/constants/test_products.dart';
 import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
+import 'package:ecommerce_app/src/features/products/presentation/home_app_bar/more_menu_button.dart';
 import 'package:ecommerce_app/src/features/products/presentation/products_list/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'features/authentication/auth_robot.dart';
+
 class Robot {
-  Robot({
-    required this.tester,
-  });
+  Robot(
+    this.tester,
+  ) : auth = AuthRobot(tester);
   final WidgetTester tester;
+  final AuthRobot auth;
 
   Future<void> pumpMyApp() async {
     // create new repositories with addDelay: false
@@ -35,5 +39,17 @@ class Robot {
   void expectFindAllProductsCards() {
     var finder = find.byType(ProductCard);
     expect(finder, findsNWidgets(kTestProducts.length));
+  }
+
+  Future<void> openPopupMenu() async {
+    final finder = find.byType(MoreMenuButton);
+    final matches = finder.evaluate();
+    // if an item is found, it means that we're running on a small window
+    // and can tap to reveal the menu
+    if (matches.isNotEmpty) {
+      await tester.tap(finder);
+      await tester.pumpAndSettle();
+    }
+    // else no-op, as the items are already visible
   }
 }
