@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/src/common_widgets/alert_dialogs.dart';
+import 'package:ecommerce_app/src/common_widgets/custom_text_button.dart';
 import 'package:ecommerce_app/src/common_widgets/primary_button.dart';
 import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/account/account_screen.dart';
@@ -49,16 +50,33 @@ class AuthRobot {
     await tester.pumpAndSettle();
   }
 
+  Future<void> tapFormToggleButton() async {
+    final toggleButton = find.byType(CustomTextButton);
+    expect(toggleButton, findsOneWidget);
+    await tester.tap(toggleButton);
+    await tester.pumpAndSettle();
+  }
+
   Future<void> enterEmail(String email) async {
-    final finder = find.byKey(EmailPasswordSignInScreen.emailKey);
-    expect(finder, findsOneWidget);
-    await tester.enterText(finder, email);
+    final emailField = find.byKey(EmailPasswordSignInScreen.emailKey);
+    expect(emailField, findsOneWidget);
+    await tester.enterText(emailField, email);
   }
 
   Future<void> enterPassword(String password) async {
-    final finder = find.byKey(EmailPasswordSignInScreen.passwordKey);
-    expect(finder, findsOneWidget);
-    await tester.enterText(finder, password);
+    final passwordField = find.byKey(EmailPasswordSignInScreen.passwordKey);
+    expect(passwordField, findsOneWidget);
+    await tester.enterText(passwordField, password);
+  }
+
+  void expectCreateAccountButtonFound() {
+    final dialogTitle = find.text('Create an account');
+    expect(dialogTitle, findsOneWidget);
+  }
+
+  void expectCreateAccountButtonNotFound() {
+    final dialogTitle = find.text('Create an account');
+    expect(dialogTitle, findsNothing);
   }
 
   Future<void> signInWithEmailAndPassword() async {
@@ -77,37 +95,40 @@ class AuthRobot {
   Future<void> pumpAccountScreen({FakeAuthRepository? authRepository}) async {
     await tester.pumpWidget(
       ProviderScope(
-          overrides: [
-            if (authRepository != null)
-              authRepositoryProvider.overrideWithValue(authRepository),
-          ],
-          child: const MaterialApp(
-            home: AccountScreen(),
-          )),
+        overrides: [
+          if (authRepository != null)
+            authRepositoryProvider.overrideWithValue(
+              authRepository,
+            )
+        ],
+        child: const MaterialApp(
+          home: AccountScreen(),
+        ),
+      ),
     );
   }
 
   Future<void> tapLogoutButton() async {
-    final logoutButton = find.text("Logout");
+    final logoutButton = find.text('Logout');
     expect(logoutButton, findsOneWidget);
     await tester.tap(logoutButton);
     await tester.pump();
   }
 
   void expectLogoutDialogFound() {
-    final dialogTitle = find.text("Are you sure?");
+    final dialogTitle = find.text('Are you sure?');
     expect(dialogTitle, findsOneWidget);
   }
 
   Future<void> tapCancelButton() async {
-    final cancelTitle = find.text("Cancel");
-    expect(cancelTitle, findsOneWidget);
-    await tester.tap(cancelTitle);
+    final cancelButton = find.text('Cancel');
+    expect(cancelButton, findsOneWidget);
+    await tester.tap(cancelButton);
     await tester.pump();
   }
 
   void expectLogoutDialogNotFound() {
-    final dialogTitle = find.text("Are you sure?");
+    final dialogTitle = find.text('Are you sure?');
     expect(dialogTitle, findsNothing);
   }
 
@@ -119,12 +140,12 @@ class AuthRobot {
   }
 
   void expectErrorAlertFound() {
-    final finder = find.text("Error");
+    final finder = find.text('Error');
     expect(finder, findsOneWidget);
   }
 
   void expectErrorAlertNotFound() {
-    final finder = find.text("Error");
+    final finder = find.text('Error');
     expect(finder, findsNothing);
   }
 
