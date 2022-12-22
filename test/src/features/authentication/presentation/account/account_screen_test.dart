@@ -6,67 +6,25 @@ import '../../../../mocks.dart';
 import '../../auth_robot.dart';
 
 void main() {
-  testWidgets('cancel logout', (tester) async {
-    // await tester.pumpWidget(
-    //   const ProviderScope(
-    //       child: MaterialApp(
-    //     home: AccountScreen(),
-    //   )),
-    // );
-    var r = AuthRobot(tester);
+  testWidgets('Cancel logout', (tester) async {
+    final r = AuthRobot(tester);
     await r.pumpAccountScreen();
-    // final logoutButton = find.text("Logout");
-    // expect(logoutButton, findsOneWidget);
-    // await tester.tap(logoutButton);
-    // await tester.pump();
     await r.tapLogoutButton();
-    // final dialogTitle = find.text("Are you sure?");
-    // expect(dialogTitle, findsOneWidget);
     r.expectLogoutDialogFound();
-    // final cancelTitle = find.text("Cancel");
-    // expect(cancelTitle, findsOneWidget);
-    // await tester.tap(cancelTitle);
-    // await tester.pump();
     await r.tapCancelButton();
-    // expect(dialogTitle, findsNothing);
     r.expectLogoutDialogNotFound();
   });
-
-  testWidgets('Confirm logout success', (tester) async {
-    // await tester.pumpWidget(
-    //   const ProviderScope(
-    //       child: MaterialApp(
-    //     home: AccountScreen(),
-    //   )),
-    // );
-    var r = AuthRobot(tester);
+  testWidgets('Confirm logout, success', (tester) async {
+    final r = AuthRobot(tester);
     await r.pumpAccountScreen();
-    // final logoutButton = find.text("Logout");
-    // expect(logoutButton, findsOneWidget);
-    // await tester.tap(logoutButton);
-    // await tester.pump();
     await r.tapLogoutButton();
-    // final dialogTitle = find.text("Are you sure?");
-    // expect(dialogTitle, findsOneWidget);
     r.expectLogoutDialogFound();
-    // final cancelTitle = find.text("Cancel");
-    // expect(cancelTitle, findsOneWidget);
-    // await tester.tap(cancelTitle);
-    // await tester.pump();
     await r.tapDialogLogoutButton();
-    // expect(dialogTitle, findsNothing);
     r.expectLogoutDialogNotFound();
     r.expectErrorAlertNotFound();
   });
-
-  testWidgets('Confirm logout failure', (tester) async {
-    // await tester.pumpWidget(
-    //   const ProviderScope(
-    //       child: MaterialApp(
-    //     home: AccountScreen(),
-    //   )),
-    // );
-    var r = AuthRobot(tester);
+  testWidgets('Confirm logout, failure', (tester) async {
+    final r = AuthRobot(tester);
     final authRepository = MockAuthRepository();
     final exception = Exception('Connection Failed');
     when(authRepository.signOut).thenThrow(exception);
@@ -76,36 +34,16 @@ void main() {
       ),
     );
     await r.pumpAccountScreen(authRepository: authRepository);
-    // final logoutButton = find.text("Logout");
-    // expect(logoutButton, findsOneWidget);
-    // await tester.tap(logoutButton);
-    // await tester.pump();
     await r.tapLogoutButton();
-    // final dialogTitle = find.text("Are you sure?");
-    // expect(dialogTitle, findsOneWidget);
     r.expectLogoutDialogFound();
-    // final cancelTitle = find.text("Cancel");
-    // expect(cancelTitle, findsOneWidget);
-    // await tester.tap(cancelTitle);
-    // await tester.pump();
     await r.tapDialogLogoutButton();
-    // expect(dialogTitle, findsNothing);
     r.expectErrorAlertFound();
   });
-
-  testWidgets('Confirm logout,loading state', (tester) async {
-    // await tester.pumpWidget(
-    //   const ProviderScope(
-    //       child: MaterialApp(
-    //     home: AccountScreen(),
-    //   )),
-    // );
-    var r = AuthRobot(tester);
+  testWidgets('Confirm logout, loading state', (tester) async {
+    final r = AuthRobot(tester);
     final authRepository = MockAuthRepository();
     when(authRepository.signOut).thenAnswer(
-      (_) => Future.delayed(
-        const Duration(seconds: 1),
-      ),
+      (_) => Future.delayed(const Duration(seconds: 1)),
     );
     when(authRepository.authStateChanges).thenAnswer(
       (_) => Stream.value(
@@ -113,12 +51,11 @@ void main() {
       ),
     );
     await r.pumpAccountScreen(authRepository: authRepository);
-    await r.tester.runAsync(() async {
+    await tester.runAsync(() async {
       await r.tapLogoutButton();
       r.expectLogoutDialogFound();
       await r.tapDialogLogoutButton();
     });
-
     r.expectCircularProgressIndicator();
   });
 }

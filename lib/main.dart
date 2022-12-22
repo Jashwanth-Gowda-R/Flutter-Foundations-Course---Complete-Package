@@ -15,14 +15,14 @@ void main() async {
   // * Register error handlers. For more info, see:
   // * https://docs.flutter.dev/testing/errors
   registerErrorHandlers();
-
   final localCartRepository = await SembastCartRepository.makeDefault();
   // * Entry point of the app
-  runApp(
-    ProviderScope(overrides: [
+  runApp(ProviderScope(
+    overrides: [
       localCartRepositoryProvider.overrideWithValue(localCartRepository),
-    ], child: const MyApp()),
-  );
+    ],
+    child: const MyApp(),
+  ));
 }
 
 void registerErrorHandlers() {

@@ -16,7 +16,7 @@ void main() {
     registerFallbackValue(const Cart());
   });
   const testUser = AppUser(uid: 'abc');
-  // create and setup mocks
+
   late MockAuthRepository authRepository;
   late MockRemoteCartRepository remoteCartRepository;
   late MockLocalCartRepository localCartRepository;
@@ -27,45 +27,16 @@ void main() {
   });
 
   CartService makeCartService() {
-    // create a container
     final container = ProviderContainer(
-      // override the providers with our mocks
       overrides: [
         authRepositoryProvider.overrideWithValue(authRepository),
         localCartRepositoryProvider.overrideWithValue(localCartRepository),
         remoteCartRepositoryProvider.overrideWithValue(remoteCartRepository),
       ],
     );
-    // don't forget this
     addTearDown(container.dispose);
-    // return the CartService by reading with the container
     return container.read(cartServiceProvider);
   }
-
-  // test('null user, writes item to local cart', () async {
-  //   // setup
-  //   const expectedCart = Cart({'123': 1});
-  //   when(() => authRepository.currentUser).thenReturn(null);
-  //   when(localCartRepository.fetchCart).thenAnswer(
-  //     (_) => Future.value(const Cart()),
-  //   );
-  //   when(() => localCartRepository.setCart(expectedCart)).thenAnswer(
-  //     (_) => Future.value(),
-  //   );
-  //   final cartService = makeCartService();
-  //   // run
-  //   await cartService.setItem(
-  //     const Item(productId: '123', quantity: 1),
-  //   );
-  //   // verify
-  //   verify(
-  //     () => localCartRepository.setCart(expectedCart),
-  //   ).called(1);
-  //   verifyNever(
-  //     // note: this requires a fallback value
-  //     () => remoteCartRepository.setCart(any(), any()),
-  //   );
-  // });
 
   group('setItem', () {
     test('null user, writes item to local cart', () async {
@@ -93,7 +64,6 @@ void main() {
     });
 
     test('non-null user, writes item to remote cart', () async {
-      // TODO: Implement
       // setup
       const expectedCart = Cart({'123': 1});
       when(() => authRepository.currentUser).thenReturn(testUser);

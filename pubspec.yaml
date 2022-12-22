@@ -2,7 +2,7 @@ name: ecommerce_app
 description: Flutter eCommerce app (part of the Complete Flutter Course Bundle)
 
 # Prevent accidental publishing to pub.dev.
-publish_to: "none"
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -24,14 +24,15 @@ dependencies:
   sembast: 3.3.0
   sembast_web: 2.0.1+1
   path_provider: 2.0.11
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
   integration_test:
-    sdk: flutter
+    sdk: flutter    
   flutter_lints: 2.0.1
   mocktail: 0.3.0
+
 
 # Custom app icon. For more info see: https://pub.dev/packages/flutter_launcher_icons
 flutter_icons:
@@ -43,7 +44,7 @@ flutter_icons:
   # https://github.com/fluttercommunity/flutter_launcher_icons/issues/144
   adaptive_icon_background: "assets/app-icon-background.png"
   adaptive_icon_foreground: "assets/app-icon-foreground.png"
-
+  
 flutter:
   uses-material-design: true
 
@@ -59,3 +60,4 @@ flutter:
   assets:
     # Add all product images
     - assets/products/
+
