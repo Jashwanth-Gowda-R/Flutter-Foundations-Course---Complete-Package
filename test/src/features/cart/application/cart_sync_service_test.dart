@@ -37,7 +37,7 @@ void main() {
     return container.read(cartSyncServiceProvider);
   }
 
-  group("Cart sync service", () {
+  group('CartSyncService', () {
     Future<void> runCartSyncTest({
       required Map<ProductID, int> localCartItems,
       required Map<ProductID, int> remoteCartItems,

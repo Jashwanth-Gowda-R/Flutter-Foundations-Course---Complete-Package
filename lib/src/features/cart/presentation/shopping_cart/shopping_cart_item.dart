@@ -132,9 +132,6 @@ class EditOrRemoveItemWidget extends ConsumerWidget {
           quantity: item.quantity,
           maxQuantity: min(product.availableQuantity, 10),
           itemIndex: itemIndex,
-          // onChanged: (value) {
-          //   showNotImplementedAlertDialog(context: context);
-          // },
           onChanged: state.isLoading
               ? null
               : (quantity) => ref
@@ -144,9 +141,6 @@ class EditOrRemoveItemWidget extends ConsumerWidget {
         IconButton(
           key: deleteKey(itemIndex),
           icon: Icon(Icons.delete, color: Colors.red[700]),
-          // onPressed: () {
-          //   showNotImplementedAlertDialog(context: context);
-          // },
           onPressed: state.isLoading
               ? null
               : () => ref

@@ -14,10 +14,7 @@ class ShoppingCartIcon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: Read from data source
-    // const cartItemsCount = 3;
     final cartItemsCount = ref.watch(cartItemsCountProvider);
-
     return Stack(
       children: [
         Center(

@@ -17,24 +17,15 @@ void main() async {
   // * https://docs.flutter.dev/testing/errors
   registerErrorHandlers();
   final localCartRepository = await SembastCartRepository.makeDefault();
-  // * Entry point of the app
-  // runApp(
-  //   ProviderScope(
-  //     overrides: [
-  //       localCartRepositoryProvider.overrideWithValue(localCartRepository),
-  //     ],
-  //     child: const MyApp(),
-  //   ),
-  // );
   // * Create ProviderContainer with any required overrides
   final container = ProviderContainer(
     overrides: [
       localCartRepositoryProvider.overrideWithValue(localCartRepository),
     ],
   );
-// * Initialize CartSyncService to start the listener
+  // * Initialize CartSyncService to start the listener
   container.read(cartSyncServiceProvider);
-// * Entry point of the app
+  // * Entry point of the app
   runApp(UncontrolledProviderScope(
     container: container,
     child: const MyApp(),

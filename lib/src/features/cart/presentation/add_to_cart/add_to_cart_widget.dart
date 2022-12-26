@@ -23,7 +23,6 @@ class AddToCartWidget extends ConsumerWidget {
       addToCartControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
-    // final availableQuantity = product.availableQuantity;
     final availableQuantity = ref.watch(itemAvailableQuantityProvider(product));
     final state = ref.watch(addToCartControllerProvider);
     return Column(
