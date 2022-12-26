@@ -9,19 +9,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class PaymentButton extends ConsumerWidget {
   const PaymentButton({super.key});
 
-  // Future<void> _pay(BuildContext context) async {
-  //   // // TODO: Implement
-  //   // showNotImplementedAlertDialog(context: context);
-  // }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // error handling
     ref.listen<AsyncValue>(
       paymentButtonControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
-    // loading state
     final state = ref.watch(paymentButtonControllerProvider);
     return PrimaryButton(
       text: 'Pay'.hardcoded,

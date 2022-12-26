@@ -16,7 +16,6 @@ class PaymentPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: Listen to cart changes on checkout and update the UI.
     ref.listen<double>(cartTotalProvider, (_, cartTotal) {
       // If the cart total becomes 0, it means that the order has been fullfilled
       // because all the items have been removed from the cart.
@@ -25,34 +24,20 @@ class PaymentPage extends ConsumerWidget {
         context.goNamed(AppRoute.orders.name);
       }
     });
-    //  Read from data source
-    // const cartItemsList = [
-    //   Item(
-    //     productId: '1',
-    //     quantity: 1,
-    //   ),
-    //   Item(
-    //     productId: '2',
-    //     quantity: 2,
-    //   ),
-    //   Item(
-    //     productId: '3',
-    //     quantity: 3,
-    //   ),
-    // ];
     final cartValue = ref.watch(cartProvider);
     return AsyncValueWidget<Cart>(
-        value: cartValue,
-        data: (cart) {
-          return ShoppingCartItemsBuilder(
-            items: cart.toItemsList(),
-            itemBuilder: (_, item, index) => ShoppingCartItem(
-              item: item,
-              itemIndex: index,
-              isEditable: false,
-            ),
-            ctaBuilder: (_) => const PaymentButton(),
-          );
-        });
+      value: cartValue,
+      data: (cart) {
+        return ShoppingCartItemsBuilder(
+          items: cart.toItemsList(),
+          itemBuilder: (_, item, index) => ShoppingCartItem(
+            item: item,
+            itemIndex: index,
+            isEditable: false,
+          ),
+          ctaBuilder: (_) => const PaymentButton(),
+        );
+      },
+    );
   }
 }
