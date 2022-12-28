@@ -12,7 +12,7 @@ void main() {
     // r.expectFindAllProductCards();
     await r.openPopupMenu();
     await r.auth.openEmailPasswordSignInScreen();
-    await r.auth.signInWithEmailAndPassword();
+    await r.auth.enterAndSubmitEmailAndPassword();
     // r.expectFindAllProductsCards();
     r.products.expectFindAllProductCards();
     await r.openPopupMenu();
