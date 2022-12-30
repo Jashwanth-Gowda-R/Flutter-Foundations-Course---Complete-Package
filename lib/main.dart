@@ -15,18 +15,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
-  // // * Register error handlers. For more info, see:
-  // // * https://docs.flutter.dev/testing/errors
-  // registerErrorHandlers();
   final localCartRepository = await SembastCartRepository.makeDefault();
   // * Create ProviderContainer with any required overrides
   final container = ProviderContainer(
     overrides: [
       localCartRepositoryProvider.overrideWithValue(localCartRepository),
     ],
-    observers: [
-      AsyncErrorLogger(),
-    ],
+    observers: [AsyncErrorLogger()],
   );
   // * Initialize CartSyncService to start the listener
   container.read(cartSyncServiceProvider);

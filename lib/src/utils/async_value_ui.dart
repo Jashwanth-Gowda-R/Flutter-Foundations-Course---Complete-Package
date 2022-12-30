@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 extension AsyncValueUI on AsyncValue {
   void showAlertDialogOnError(BuildContext context) {
-    final message = _errorMessage(error);
     if (!isLoading && hasError) {
+      final message = _errorMessage(error);
       showExceptionAlertDialog(
         context: context,
         title: 'Error'.hardcoded,

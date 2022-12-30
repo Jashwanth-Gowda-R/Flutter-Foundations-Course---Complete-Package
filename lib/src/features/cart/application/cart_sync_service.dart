@@ -49,7 +49,6 @@ class CartSyncService {
         await localCartRepository.setCart(const Cart());
       }
     } catch (e, st) {
-      // Handle error and/or rethrow
       ref.read(errorLoggerProvider).logError(e, st);
     }
   }

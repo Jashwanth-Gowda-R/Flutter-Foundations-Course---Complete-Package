@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/src/exceptions/app_exception.dart';
 import 'package:ecommerce_app/src/features/authentication/domain/app_user.dart';
 import 'package:ecommerce_app/src/features/authentication/domain/fake_app_user.dart';
-import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
 import 'package:ecommerce_app/src/utils/delay.dart';
 import 'package:ecommerce_app/src/utils/in_memory_store.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,11 +27,9 @@ class FakeAuthRepository {
       }
       // same email, wrong password
       if (u.email == email && u.password != password) {
-        // throw Exception('Wrong password'.hardcoded);
         throw const AppException.wrongPassword();
       }
     }
-    // throw Exception('User not found'.hardcoded);
     throw const AppException.userNotFound();
   }
 
@@ -42,14 +39,12 @@ class FakeAuthRepository {
     // check if the email is already in use
     for (final u in _users) {
       if (u.email == email) {
-        // throw Exception('Email already in use'.hardcoded);
         throw const AppException.emailAlreadyInUse();
       }
     }
     // minimum password length requirement
     if (password.length < 8) {
-      // throw Exception('Password is too weak'.hardcoded);
-      throw const AppException.weakPassword();
+      throw const AppException.userNotFound();
     }
     // create new user
     _createNewUser(email, password);
