@@ -42,16 +42,14 @@ class _ProductsSearchTextFieldState
                 ? IconButton(
                     onPressed: () {
                       _controller.clear();
-                      //  Clear search state
                       ref
                           .read(productsSearchQueryStateProvider.notifier)
-                          .state = "";
+                          .state = '';
                     },
                     icon: const Icon(Icons.clear),
                   )
                 : null,
           ),
-          //  Implement onChanged
           onChanged: (text) =>
               ref.read(productsSearchQueryStateProvider.notifier).state = text,
         );
